@@ -208,5 +208,5 @@ MIT License — see [LICENSE](LICENSE) for details.
 
 ## 👤 Author
 
-**Mr20x20** — Security Engineering Enthusiast  
+**Yasin.m** — Security Engineering Enthusiast  
 GitHub: [github.com/Mr20x20](https://github.com/Mr20x20)
