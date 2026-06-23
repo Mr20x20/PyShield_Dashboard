@@ -12,7 +12,7 @@ from datetime import datetime
 from flask import Flask, jsonify, render_template
 from flask_socketio import SocketIO
 
-import Database as db
+import database as db
 import scheduler
 
 logging.basicConfig(
