@@ -1,0 +1,5 @@
+Jun 17 14:22:15 server sshd[23451]: Failed password for invalid user admin from 192.168.1.105 port 44562 ssh2
+Jun 17 14:22:17 server sshd[23452]: Failed password for invalid user admin from 192.168.1.105 port 44563 ssh2
+Jun 17 14:22:19 server sshd[23453]: Failed password for invalid user root from 192.168.1.105 port 44564 ssh2
+Jun 17 14:22:21 server sshd[23454]: Failed password for user test from 192.168.1.105 port 44565 ssh2
+Jun 17 14:22:30 server login[5678]: authentication failure for user admin
