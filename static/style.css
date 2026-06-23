@@ -1,0 +1,408 @@
+/* PyShield Dashboard — SOC dark theme */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg-base: #0d0f0f;
+    --bg-card: #141718;
+    --bg-card-alt: #1a1d1e;
+    --border: #2a2e30;
+    --green: #00e676;
+    --green-dim: #00c853;
+    --red: #ff1744;
+    --red-dim: #d50000;
+    --amber: #ffab00;
+    --blue: #2979ff;
+    --text-primary: #e8eaed;
+    --text-muted: #6b7280;
+    --text-dim: #9aa0a6;
+    --font: "Courier New", "Consolas", monospace;
+    --radius: 6px;
+}
+
+html,
+body {
+    background: var(--bg-base);
+    color: var(--text-primary);
+    font-family: var(--font);
+    font-size: 13px;
+    min-height: 100vh;
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    height: 52px;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+.topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.logo-icon {
+    color: var(--green);
+    font-size: 20px;
+}
+.logo-text {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--text-primary);
+    text-transform: uppercase;
+}
+.logo-accent {
+    color: var(--green);
+}
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+.conn-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    transition: background 0.3s;
+}
+.conn-dot.connected {
+    background: var(--green);
+    box-shadow: 0 0 6px var(--green);
+}
+.conn-dot.disconnected {
+    background: var(--red);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 200px 1fr 200px;
+    grid-template-rows: auto auto auto;
+    gap: 16px;
+    padding: 20px 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+}
+.card-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+}
+
+.card-gauge {
+    grid-column: 1;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.gauge-wrap {
+    position: relative;
+    width: 160px;
+    height: 100px;
+}
+.gauge-center {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    pointer-events: none;
+}
+.gauge-score {
+    display: block;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--green);
+    line-height: 1;
+}
+.gauge-level {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+.card-trend {
+    grid-column: 2;
+    grid-row: 1;
+}
+.card-trend canvas {
+    display: block;
+    height: 160px !important;
+    width: 100% !important;
+}
+.card-donut {
+    grid-column: 3;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.donut-wrap {
+    width: 130px;
+    height: 130px;
+}
+.donut-legend {
+    margin-top: 10px;
+    width: 100%;
+    font-size: 10px;
+    color: var(--text-dim);
+}
+.donut-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.donut-legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.card-banner {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #1a0a0a;
+    border-color: var(--red-dim);
+    padding: 12px 16px;
+}
+.card-banner.hidden {
+    display: none;
+}
+.banner-icon {
+    font-size: 18px;
+    color: var(--red);
+}
+.banner-text {
+    font-size: 13px;
+    color: #ff6b6b;
+}
+
+.card-feed {
+    grid-column: 1 / -1;
+    grid-row: 3;
+}
+.feed-wrap {
+    overflow-x: auto;
+}
+.feed-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+.feed-table th {
+    text-align: left;
+    padding: 6px 10px;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+}
+.feed-table td {
+    padding: 7px 10px;
+    border-bottom: 1px solid #1f2325;
+    color: var(--text-dim);
+    vertical-align: middle;
+}
+.feed-table tr:hover td {
+    background: var(--bg-card-alt);
+}
+.feed-empty {
+    text-align: center;
+    color: var(--text-muted);
+    padding: 20px !important;
+}
+
+.badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 3px;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+}
+.badge-clean {
+    background: #0a1a0f;
+    color: var(--green);
+    border: 1px solid #1a3a2a;
+}
+.badge-low {
+    background: #0a1520;
+    color: var(--blue);
+    border: 1px solid #1a3550;
+}
+.badge-medium {
+    background: #1a1500;
+    color: var(--amber);
+    border: 1px solid #3a3000;
+}
+.badge-high {
+    background: #1a0800;
+    color: #ff7043;
+    border: 1px solid #3a1800;
+}
+.badge-critical {
+    background: #1a0000;
+    color: var(--red);
+    border: 1px solid #3a0000;
+}
+.badge-unknown {
+    background: #111;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+}
+
+.gauge-score.level-clean {
+    color: var(--green);
+}
+.gauge-score.level-low {
+    color: var(--blue);
+}
+.gauge-score.level-medium {
+    color: var(--amber);
+}
+.gauge-score.level-high {
+    color: #ff7043;
+}
+.gauge-score.level-critical {
+    color: var(--red);
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-base);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 2px;
+}
+
+/* ── Sensor control bar ──────────────────────────────────────────────────────*/
+.sensor-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 10px 24px;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+}
+
+.sensor-bar-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-right: 4px;
+}
+
+.sensor-btn-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+}
+
+.sensor-btn {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: #1e2426;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text-dim);
+    font-family: var(--font);
+    font-size: 11px;
+    padding: 5px 12px;
+    cursor: pointer;
+    transition:
+        border-color 0.2s,
+        color 0.2s;
+    white-space: nowrap;
+}
+
+.sensor-btn:hover {
+    border-color: var(--green);
+    color: var(--green);
+}
+.sensor-btn:active {
+    background: #1a2e20;
+}
+
+.sensor-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    border-color: var(--border);
+    color: var(--text-muted);
+}
+
+.sensor-btn-siem {
+    border-color: #2a3a4a;
+    color: var(--blue);
+}
+.sensor-btn-siem:hover {
+    border-color: var(--blue);
+    color: #6ab0ff;
+}
+
+.sensor-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    flex-shrink: 0;
+    transition: background 0.3s;
+}
+.sensor-dot.running {
+    background: var(--amber);
+    box-shadow: 0 0 5px var(--amber);
+}
+.sensor-dot.ok {
+    background: var(--green);
+}
+.sensor-dot.error {
+    background: var(--red);
+}
+
+.sensor-meta {
+    font-size: 9px;
+    color: var(--text-muted);
+    padding-left: 2px;
+    white-space: nowrap;
+}
