@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>PyShield Dashboard</title>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/socket.io-client@4.7.2/dist/socket.io.min.js"></script>
+        <link rel="stylesheet" href="../static/Style.css" />
+    </head>
+    <body>
+        <header class="topbar">
+            <div class="topbar-left">
+                <span class="logo-icon">&#9635;</span>
+                <span class="logo-text"
+                    >PyShield<span class="logo-accent">SIEM</span></span
+                >
+            </div>
+            <div class="topbar-right">
+                <span class="conn-dot" id="conn-dot"></span>
+                <span class="conn-label" id="conn-label">Connecting...</span>
+                <span class="last-update" id="last-update">--</span>
+            </div>
+        </header>
+
+        <!-- Sensor Control Panel -->
+        <div class="sensor-bar">
+            <span class="sensor-bar-label">Sensors</span>
+
+            <div class="sensor-btn-group">
+                <button
+                    class="sensor-btn"
+                    id="btn-port_scanner"
+                    onclick="triggerSensor('port_scanner')"
+                >
+                    <span class="sensor-dot" id="dot-port_scanner"></span>
+                    Port Scanner
+                </button>
+                <span class="sensor-meta" id="meta-port_scanner"
+                    >never run</span
+                >
+            </div>
+
+            <div class="sensor-btn-group">
+                <button
+                    class="sensor-btn"
+                    id="btn-log_analyzer"
+                    onclick="triggerSensor('log_analyzer')"
+                >
+                    <span class="sensor-dot" id="dot-log_analyzer"></span>
+                    Log Analyzer
+                </button>
+                <span class="sensor-meta" id="meta-log_analyzer"
+                    >never run</span
+                >
+            </div>
+
+            <div class="sensor-btn-group">
+                <button
+                    class="sensor-btn"
+                    id="btn-secure_monitor"
+                    onclick="triggerSensor('secure_monitor')"
+                >
+                    <span class="sensor-dot" id="dot-secure_monitor"></span>
+                    FIM Monitor
+                </button>
+                <span class="sensor-meta" id="meta-secure_monitor"
+                    >never run</span
+                >
+            </div>
+
+            <div class="sensor-btn-group">
+                <button
+                    class="sensor-btn sensor-btn-siem"
+                    onclick="triggerSensor('siem')"
+                >
+                    &#8635; Re-evaluate SIEM
+                </button>
+            </div>
+        </div>
+
+        <main class="grid">
+            <section class="card card-gauge">
+                <p class="card-label">Risk Score</p>
+                <div class="gauge-wrap">
+                    <canvas id="gaugeChart"></canvas>
+                    <div class="gauge-center">
+                        <span class="gauge-score" id="gauge-score">0</span>
+                        <span class="gauge-level" id="gauge-level">CLEAN</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card card-trend">
+                <p class="card-label">Risk Score Trend</p>
+                <canvas id="trendChart"></canvas>
+            </section>
+
+            <section class="card card-donut">
+                <p class="card-label">Event Breakdown</p>
+                <div class="donut-wrap">
+                    <canvas id="donutChart"></canvas>
+                </div>
+                <div id="donut-legend" class="donut-legend"></div>
+            </section>
+
+            <section class="card card-banner hidden" id="alert-banner">
+                <span class="banner-icon">&#9888;</span>
+                <span class="banner-text" id="banner-text"
+                    >Correlation alert detected</span
+                >
+            </section>
+
+            <section class="card card-feed">
+                <p class="card-label">Live Event Feed</p>
+                <div class="feed-wrap">
+                    <table class="feed-table">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Detail</th>
+                                <th>Level</th>
+                            </tr>
+                        </thead>
+                        <tbody id="feed-body">
+                            <tr>
+                                <td colspan="3" class="feed-empty">
+                                    Waiting for events...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+
+        <script src="../static/dashboard.js"></script>
+    </body>
+</html>
